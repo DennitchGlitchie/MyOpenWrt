@@ -101,3 +101,63 @@ config openvpn 'sample_client'
 config openvpn 'EdinburghTest1'
         option enabled '1'
 	option config '/etc/openvpn/EdinburghTest1.ovpn'
+
+
+##### WireGuard VPN ####
+https://docs.google.com/spreadsheets/d/1lidLRUfeKhcIxfMo9-MyWqeG8ImvjDEMeLwEnekhtrc/edit?gid=0#gid=0
+
+Arris Surfboard Router:
+Set up a service to translate UPD on port 51822 to server IP 192.168.0.249 (OpenWRT Router) 
+Public IP of Surfboard Router: 24.6.41.59
+
+OpenWRT Router Wireguard Settings:
+OpenWrt	
+Protocol	Wireguard VPN
+Disable this Interface 	Unchecked
+Bring Up on Boot	Checked
+Private Key	#ERROR!
+Public Key	8lWsJ2oUAGL0oWm8zO9Tg6MQaUKTyvphgDQ6HctuElA=
+Generate new key pair	
+Listen Port	51822
+IP Addresses	10.14.0.1/24
+No Host Rules	Unchecked
+	
+OpenWrt Peer	
+Description	Tether
+Public Key	/eagSpkV7pJH/Beg38ECSAYQWlLJhaRYye9CMJjQAls=
+Private Key (optional)	Blank
+Generate new key pair	
+Preshared Key	Blank
+Allowed IPs	10.14.0.2/32
+Route Allowed IPs	Checked
+Endpoint Host	Blank
+Endpoint Port	Blank
+Persistent Keep Alive	25
+
+Firewall settings important VPN -> WAN? or LAN?
+
+WireGuard App on Phone
+WireGuard App	
+Interface	
+Name:	HomeVPN
+Private Key	CCNyVCKQ1G2EP/NIt4xZxxg98pWzakAxKwUyjURTfUA=
+Public Key:	/eagSpkV7pJH/Beg38ECSAYQWlLJhaRYye9CMJjQAls=
+Addresses:	10.14.0.2/32
+Listen port	Automatic
+MTU	Automatic
+DNS Servers:	10.14.0.1
+	
+Peer	
+Public Key:	8lWsJ2oUAGL0oWm8zO9Tg6MQaUKTyvphgDQ6HctuElA=
+Preshared Key	Blank
+Endpoint	24.6.41.59:51822
+Allowed IPs	0.0.0.0/0, ::/0
+Presisten Keepalive	25
+
+
+Testing if not working: 
+Ilya Suggestions 4/22
+(0) Repeat success on openwrt network with endpoint 192.168.66.1:51822
+(1) Go on to Arris Surfboard Network with endpoint 192.168.0.249:51822 -> wirewall settings
+(2) Tower Network with endpoint 24.6.41.59:51822 -> DMZ
+ 
